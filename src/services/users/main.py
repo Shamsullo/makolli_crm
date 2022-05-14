@@ -30,10 +30,14 @@ async def update_user(user: models.UserUpdate, payload: dict = Depends(ACL.JWTpa
     return await crud.update_user(user, payload)
 
 @router.get('/roles')
-async def get_all_role_types(payload: dict = Depends(ACL.JWTpayload)):
+async def get_all_role_types(c):
     return await crud.get_all_roles()
 
 
 @router.post('/role')
 async def add_role(name):
     return await crud.add_role(name)
+
+@router.get('/accounts')
+async def get_accounts(payload: dict = Depends(ACL.JWTpayload)):
+    return await crud.get_account()

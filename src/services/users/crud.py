@@ -109,3 +109,12 @@ async def add_role(name):
         result = cur.fetchone()
         result = result[0] if result else None
     return result
+
+
+async def get_accounts():
+    result = None
+    with connection() as cur:
+        cur.callproc('"user".get_accounts',(),)
+        result = cur.fetchone()
+        result = result[0] if result else None
+    return result
