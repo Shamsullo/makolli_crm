@@ -60,3 +60,11 @@ async def get_dds_articles(payload: dict = Depends(ACL.JWTpayload)):
 async def delete_dds_article(dds_id, payload: dict = Depends(ACL.JWTpayload)):
     return await crud.delete_dds_article(dds_id)
 
+@router.get('/exchange_rate')
+async def get_currencies_exchange_rate(p_date=None, payload: dict = Depends(ACL.JWTpayload)):
+    return await crud.get_currencies_exchange_rate(p_date)
+
+
+@router.put('/exchange_rate')
+async def update_currency_rate(p_code, p_rate, payload: dict = Depends(ACL.JWTpayload)):
+    return await crud.update_currency_rate(p_code, p_rate)

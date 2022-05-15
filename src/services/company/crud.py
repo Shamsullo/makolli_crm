@@ -23,7 +23,7 @@ async def get_all_positions():
 async def delete_position(position_id):
     result = None
     with connection() as cur:
-        cur.execute('"constant".delete_position(%s)', (position_id,))
+        cur.execute('call "constant".delete_position(%s)', (position_id,))
         result = 'ok'
 
     return result
@@ -78,10 +78,10 @@ async def delete_client(client_id):
 
 
 
-async def add_currency(short_name, full_name=None):
+async def add_currency(code, short_name, p_rate, full_name=None):
     result = None
     with connection() as cur:
-        cur.callproc('"constant".add_currency', (short_name, full_name))
+        cur.callproc('"constant".add_currency_with_rate', (code, short_name, p_rate, full_name))
         result = cur.fetchone()
         result = result[0] if result else None
 
@@ -100,9 +100,9 @@ async def get_currencies():
 
 async def delete_currency(currency_id):
     result = None
-    with connection() as cur:
-        cur.execute('call "constant".delete_currency(%s)', (currency_id,))
-        result = 'ok'
+    # with connection() as cur:
+    #     cur.execute('call "constant".delete_currency(%s)', (currency_id,))
+    #     result = 'ok'
 
     return result
 

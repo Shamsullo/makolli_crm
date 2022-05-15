@@ -40,4 +40,4 @@ async def add_role(name):
 
 @router.get('/accounts')
 async def get_accounts(payload: dict = Depends(ACL.JWTpayload)):
-    return await crud.get_account()
+    return await crud.get_accounts()
