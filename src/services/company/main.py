@@ -49,8 +49,8 @@ async def delete_client(client_id: int, payload: dict = Depends(ACL.JWTpayload))
 
 
 @router.post('/currency')
-async def add_currency(short_name, full_name=None, payload: dict = Depends(ACL.JWTpayload)):
-    return await crud.add_currency(short_name, full_name)
+async def add_currency(code, short_name, p_rate, full_name=None, payload: dict = Depends(ACL.JWTpayload)):
+    return await crud.add_currency(code, short_name, p_rate, full_name)
 
 
 @router.get('/currencies')

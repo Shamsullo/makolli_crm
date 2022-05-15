@@ -105,3 +105,23 @@ async def delete_dds_article(dds_id):
         cur.execute('call "constant".delete_dds_article(%s)', (dds_id,))
         result = 'ok'
     return result
+
+
+async def get_currencies_exchange_rate(p_date):
+    result = None
+    with connection() as cur:
+        cur.callproc('transaction.get_currencies_with_rate', (p_date,))
+        result = cur.fetchone()
+        result = result[0] if result else None
+
+    return result
+
+
+async def update_currency_rate(p_code, p_rate):
+    result = None
+    with connection() as cur:
+        cur.callproc('transaction.update_currency_rate', (p_code, p_rate,))
+        result = cur.fetchone()
+        result = result[0] if result else None
+
+    return result
