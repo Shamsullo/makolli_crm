@@ -69,5 +69,10 @@ async def get_employees(payload: dict = Depends(ACL.JWTpayload)):
 
 
 @router.post('/cash_accountant')
-async def add_client(user_id: int, name: str, currency_id: int, is_main: bool, payload: dict = Depends(ACL.JWTpayload)):
+async def add_cash_accountant(user_id: int, name: str, currency_id: int, is_main: bool, payload: dict = Depends(ACL.JWTpayload)):
     return await crud.add_cash_accountant(user_id, name, currency_id, is_main)
+
+
+@router.get('/cash_accountants')
+async def get_cash_accountant(payload: dict = Depends(ACL.JWTpayload)):
+    return await crud.get_cash_accountant()
