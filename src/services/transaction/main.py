@@ -12,12 +12,12 @@ async def add_transaction(trans: models.AddTransaction, payload: dict = Depends(
 
 
 @router.post('/history')
-async def get_transaction_history(start_date, end_date, cash_accountant_ids: List[int], payload: dict = Depends(ACL.JWTpayload)):
+async def get_transaction_history(start_date, end_date, cash_accountant_ids: List[int]=None, payload: dict = Depends(ACL.JWTpayload)):
     return await crud.get_transaction_history(start_date, end_date, cash_accountant_ids, payload)
 
 
 @router.post('/history_main')
-async def get_transaction_history_main(start_date, end_date, cash_accountant_ids: List[int], payload: dict = Depends(ACL.JWTpayload)):
+async def get_transaction_history_main(start_date, end_date, cash_accountant_ids: List[int]=None, payload: dict = Depends(ACL.JWTpayload)):
     return await crud.get_transaction_history_main(start_date, end_date, cash_accountant_ids, payload)
 
 
