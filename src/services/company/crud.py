@@ -130,7 +130,7 @@ async def add_cash_accountant(user_id, name, currency_id, is_main):
 async def get_cash_accountant():
     result = None
     with connection() as cur:
-        cur.callproc('company.get_cash_accountants()', (name, currency_id, is_main, user_id))
+        cur.callproc('company.get_cash_accountants')
         result = cur.fetchone()
         result = result[0] if result else None
 
