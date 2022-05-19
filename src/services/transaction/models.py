@@ -2,13 +2,13 @@ from typing import Optional
 from pydantic import BaseModel
 
 class AddTransaction(BaseModel):
-    date_time: str
+    date_time: Optional[str] = None
     operation_type_id: int
     source: str
     outgo: Optional[float] = 0.0
     income: Optional[float] = 0.0
-    dds_article_id: Optional[int]
-    desc: Optional[str]
+    dds_article_id: Optional[int] = None
+    desc: Optional[str] = None
 
 
 class UpdateTransaction(BaseModel):
