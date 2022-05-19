@@ -6,8 +6,8 @@ async def add_transaction(trans, payload):
     result = None
     with connection() as cur:
         cur.callproc('"transaction".add_transaction', (
-            trans.date_time, trans.operation_type_id, trans.source, payload['user_id'], trans.outgo,
-            trans.income, trans.dds_article_id, trans.desc
+            trans.operation_type_id, trans.source, payload['user_id'], trans.outgo,
+            trans.income, trans.dds_article_id, trans.desc, trans.date_time
             )
         )
         result = cur.fetchone()
