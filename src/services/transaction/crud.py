@@ -36,20 +36,19 @@ async def get_transaction_history_old(start_date, end_date, cash_accountant_ids,
     return result
 
 
-async def get_transaction_history(start_date, end_date, payload):
+async def get_transaction_history(start_date, end_date, cash_accountant_ids, payload):
     result = None
     with connection() as cur:
-        cur.callproc('"transaction".get_transaction1', (start_date, end_date, payload['user_id']))
+        cur.callproc('"transaction".get_transaction1', (start_date, end_date, payload['user_id'], cash_accountant_ids))
         result = cur.fetchone()
         result = result[0] if result else None
     return result
 
 
-
 async def get_transaction_history_main(start_date, end_date, cash_accountant_ids, payload):
     result = None
     with connection() as cur:
-        cur.callproc('"transaction".get_transaction1_main', (start_date, end_date, payload['user_id']))
+        cur.callproc('"transaction".get_transaction1_main', (start_date, end_date, payload['user_id'], cash_accountant_ids))
         result = cur.fetchone()
         result = result[0] if result else None
     return result
