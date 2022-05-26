@@ -16,9 +16,9 @@ async def get_from_to_list(payload: dict = Depends(ACL.JWTpayload)):
     return await crud.get_from_to_list(payload)
 
 
-@router.get('/history')
-async def get_transaction_history(start_date, end_date, payload: dict = Depends(ACL.JWTpayload)):
-    return await crud.get_transaction_history(start_date, end_date, payload)
+@router.post('/history')
+async def get_transaction_history(start_date, end_date, cash_accountant_ids: List[int]=None, payload: dict = Depends(ACL.JWTpayload)):
+    return await crud.get_transaction_history(start_date, end_date, cash_accountant_ids, payload)
 
 @router.post('/history_old')
 async def get_transaction_history_old(start_date, end_date, cash_accountant_ids: List[int]=None, payload: dict = Depends(ACL.JWTpayload)):
