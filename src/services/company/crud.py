@@ -127,6 +127,26 @@ async def add_cash_accountant(user_id, name, currency_id, is_main):
     return result
 
 
+async def connect_user_to_cash_account(cash_acc_id, user_id):
+    result = None
+    with connection() as cur:
+        cur.callproc('company.connect_user_to_cash_accountant', (cash_acc_id, user_id))
+        result = cur.fetchone()
+        result = result[0] if result else None
+
+    return result
+
+
+async def disconnect_user_to_cash_account(cash_acc_id, user_id):
+    result = None
+    with connection() as cur:
+        cur.callproc('company.disconnect_user_from_cash_accountant', (cash_acc_id, user_id))
+        result = cur.fetchone()
+        result = result[0] if result else None
+
+    return result
+
+
 async def get_cash_accountant():
     result = None
     with connection() as cur:

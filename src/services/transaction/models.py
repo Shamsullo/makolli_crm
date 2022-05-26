@@ -7,8 +7,12 @@ class AddTransaction(BaseModel):
     source: str
     outgo: Optional[float] = 0.0
     income: Optional[float] = 0.0
-    dds_article_id: Optional[int] = None
-    desc: Optional[str] = None
+    dds_article_id: Optional[int]
+    desc: Optional[str]
+    client_id: Optional[int]
+    employee_id: Optional[int]
+    fcash_account_id: Optional[int]
+    tcash_account_id: Optional[int]
 
 
 class UpdateTransaction(BaseModel):
@@ -19,4 +23,7 @@ class UpdateTransaction(BaseModel):
     income: Optional[float]
     dds_article_id: Optional[int]
     desc: Optional[str]
-
+    client_id: Optional[int]
+    employee_id: Optional[int]
+    fcash_account_id: Optional[int]
+    tcash_account_id: Optional[int]

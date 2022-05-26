@@ -11,10 +11,18 @@ async def add_transaction(trans: models.AddTransaction, payload: dict = Depends(
     return await crud.add_transaction(trans, payload)
 
 
-@router.post('/history')
-async def get_transaction_history(start_date, end_date, cash_accountant_ids: List[int]=None, payload: dict = Depends(ACL.JWTpayload)):
-    return await crud.get_transaction_history(start_date, end_date, cash_accountant_ids, payload)
+@router.get('/from-to-list')
+async def get_from_to_list(payload: dict = Depends(ACL.JWTpayload)):
+    return await crud.get_from_to_list(payload)
 
+
+@router.get('/history')
+async def get_transaction_history(start_date, end_date, payload: dict = Depends(ACL.JWTpayload)):
+    return await crud.get_transaction_history(start_date, end_date, payload)
+
+@router.post('/history_old')
+async def get_transaction_history_old(start_date, end_date, cash_accountant_ids: List[int]=None, payload: dict = Depends(ACL.JWTpayload)):
+    return await crud.get_transaction_history_old(start_date, end_date, cash_accountant_ids, payload)
 
 @router.post('/history_main')
 async def get_transaction_history_main(start_date, end_date, cash_accountant_ids: List[int]=None, payload: dict = Depends(ACL.JWTpayload)):
@@ -24,6 +32,16 @@ async def get_transaction_history_main(start_date, end_date, cash_accountant_ids
 @router.put('/update')
 async def update_transaction(trans_id: int, trans: models.UpdateTransaction, payload: dict = Depends(ACL.JWTpayload)):
     return await crud.update_transaction(trans_id, trans, payload)
+
+
+@router.post('/cancel')
+async def cancel_transaction(trans_id: int, payload: dict = Depends(ACL.JWTpayload)):
+    return await crud.cancel_transaction(trans_id)
+
+
+@router.post('/access')
+async def give_modify_access(start_date, end_date, cash_accountant_id: int, payload: dict = Depends(ACL.JWTpayload)):
+    return await crud.give_modify_access(start_date, end_date, cash_accountant_id)
 
 
 @router.delete('/delete')
@@ -68,3 +86,44 @@ async def get_currencies_exchange_rate(p_date=None, payload: dict = Depends(ACL.
 @router.put('/exchange_rate')
 async def update_currency_rate(p_code, p_rate, payload: dict = Depends(ACL.JWTpayload)):
     return await crud.update_currency_rate(p_code, p_rate)
+
+
+
+
+#
+# filter_date ={
+#     'person': [
+#         'id': 248234,
+#         'groub': [
+#             ],
+#     ],
+#     'person_name': 'sjdfksd',
+#
+#     keyword = (personId, picURl, personName, personCode)
+#     values = (None, (value, value1), 'sfasdf', None)
+# }
+#
+#
+#
+#
+# [
+#     {},
+#     {},
+#
+# ]
+#
+#
+# func(input) => |  ENGINE   | => OUTPUT!
+#
+# INPUT:
+#     LIST of dictionary,
+#     n -> number of values - keyword of the dictionaries
+#
+# ENGINE:
+#     list
+#
+#
+# OUTPUT:
+#     filter_data from the given list by given keyword
+#
+#
