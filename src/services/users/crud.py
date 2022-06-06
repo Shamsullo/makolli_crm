@@ -46,18 +46,17 @@ async def user_registration(user: models.UserReg):
     return result
 
 
-async def update_user(user: models.UserReg, payload):
-    print(payload)
-
+async def update_user(user_id, user, payload):
     result = None
     with connection() as cur:
-        cur.callproc('"user".update_user',
-                    (payload['user_id'], user.first_name, user.last_name, user.middle_name,None, None, None))
+        cur.callproc('"user".update_user2',
+            (user_id, user.first_name, user.last_name, user.phone_number, user.role_id, user.middle_name,
+             user.email, user.position_id, user.department_id, user.disabled, user.active)
+        )
         result = cur.fetchone()
         result = result[0] if result else None
 
     return result
-
 
 
 async def user_logout(device_token: Optional[str]):

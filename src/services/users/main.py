@@ -26,8 +26,8 @@ async def change_user_password(new_pas: ChangePassword):
 
 
 @router.put('/update')
-async def update_user(user: models.UserUpdate, payload: dict = Depends(ACL.JWTpayload)):
-    return await crud.update_user(user, payload)
+async def update_user(user_id: int, user: models.UserUpdate, payload: dict = Depends(ACL.JWTpayload)):
+    return await crud.update_user(user_id, user, payload)
 
 @router.get('/roles')
 async def get_all_role_types(c):
