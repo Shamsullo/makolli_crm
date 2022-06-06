@@ -24,6 +24,13 @@ class UserUpdate(BaseModel):
     first_name: Optional[str]
     last_name: Optional[str]
     middle_name: Optional[str]
+    phone_number: Optional[str]
+    role_id: Optional[int]
+    email: Optional[str]
+    position_id: Optional[int]
+    department_id: Optional[int]
+    disabled: Optional[bool]
+    active: Optional[bool]
 
 
 class ChangePassword(BaseModel):

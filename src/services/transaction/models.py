@@ -27,3 +27,12 @@ class UpdateTransaction(BaseModel):
     employee_id: Optional[int]
     fcash_account_id: Optional[int]
     tcash_account_id: Optional[int]
+    user_id: Optional[int]
+
+
+class ModifyAccess(BaseModel):
+    stat_date: str
+    end_date: str
+    user_id: int
+    cash_account_id: int
+
