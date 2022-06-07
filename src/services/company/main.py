@@ -111,4 +111,4 @@ async def disconnect_user_to_cash_account(cash_acc_id: int, user_ids: List[int])
 
 @router.get('/cash_accountants')
 async def get_cash_accountant(payload: dict = Depends(ACL.JWTpayload)):
-    return await crud.get_cash_accountant()
+    return await crud.get_cash_accountant(payload['user_id'])

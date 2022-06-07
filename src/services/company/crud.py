@@ -189,10 +189,10 @@ async def disconnect_user_to_cash_account(cash_acc_id, user_ids):
     return result
 
 
-async def get_cash_accountant():
+async def get_cash_accountant(user_id):
     result = None
     with connection() as cur:
-        cur.callproc('company.get_cash_accountants')
+        cur.callproc('company.get_cash_accountants', [user_id,])
         result = cur.fetchone()
         result = result[0] if result else None
 
