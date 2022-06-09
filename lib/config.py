@@ -27,3 +27,21 @@ def configdb(filename='lib/configs.env', section='postgresql'):
         raise Exception('Section {0} not found in the {1} file'.format(section, filename))
 
     return db
+
+
+def static_env(filename='lib/configs.env'):
+    # create a parser
+    parser = ConfigParser()
+    # read config file
+    parser.read(filename, encoding='UTF-8')
+
+    # get section, default to postgresql
+    keys = {}
+    if parser.has_section('static_env'):
+        params = parser.items('static_env')
+        for param in params:
+            keys[param[0]] = param[1]
+    else:
+        raise Exception('Section {0} not found in the {1} file'.format('api_keys', filename))
+
+    return keys
