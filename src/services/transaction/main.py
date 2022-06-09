@@ -6,6 +6,7 @@ from fastapi import Depends, APIRouter, Request, Response, HTTPException
 
 router = APIRouter(prefix='/transaction', tags=["Transactions"])
 
+
 @router.post('/add')
 async def add_transaction(trans: models.AddTransaction, payload: dict = Depends(ACL.JWTpayload)):
     return await crud.add_transaction(trans, payload)
@@ -19,16 +20,6 @@ async def get_from_to_list(payload: dict = Depends(ACL.JWTpayload)):
 @router.post('/history')
 async def get_transaction_history(start_date, end_date, cash_accountant_ids: List[int]=None, payload: dict = Depends(ACL.JWTpayload)):
     return await crud.get_transaction_history(start_date, end_date, cash_accountant_ids, payload)
-
-
-@router.post('/history_old')
-async def get_transaction_history_old(start_date, end_date, cash_accountant_ids: List[int]=None, payload: dict = Depends(ACL.JWTpayload)):
-    return await crud.get_transaction_history_old(start_date, end_date, cash_accountant_ids, payload)
-
-
-@router.post('/history_main')
-async def get_transaction_history_main(start_date, end_date, cash_accountant_ids: List[int]=None, payload: dict = Depends(ACL.JWTpayload)):
-    return await crud.get_transaction_history_main(start_date, end_date, cash_accountant_ids, payload)
 
 
 @router.put('/update')
@@ -99,3 +90,8 @@ async def get_currencies_exchange_rate(p_date=None, payload: dict = Depends(ACL.
 @router.put('/exchange_rate')
 async def update_currency_rate(p_code, p_rate, payload: dict = Depends(ACL.JWTpayload)):
     return await crud.update_currency_rate(p_code, p_rate)
+
+
+@router.get('/report')
+async def get_report_in_excel(payload: dict = Depends(ACL.JWTpayload)):
+    return await crud.get_report_in_excel()
