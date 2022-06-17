@@ -4,6 +4,8 @@ import openpyxl
 from datetime import date
 from openpyxl.styles import Font
 
+REPORTS_LOCATION = static_env()['report_path']
+
 
 async def add_transaction(trans, payload):
     result = None
@@ -179,7 +181,7 @@ async def get_report_in_excel():
         result = result[0] if result else None
 
     if result:
-        REPORT_FILE_NAME = static_env()['report_path'] + '/report_' + str(date.today()) + '.xlsx'
+        REPORT_FILE_NAME = REPORTS_LOCATION + '/report_' + str(date.today()) + '.xlsx'
         report = openpyxl.Workbook()
 
         sheet = report.active
@@ -252,3 +254,8 @@ async def get_report_in_excel():
             cur.execute('call transaction.archive_and_clean_the_logs()')
         return REPORT_FILE_NAME
     return result
+
+
+async def get_list_of_reports_location():
+    import os
+    return os.listdir(REPORTS_LOCATION)
