@@ -31,7 +31,7 @@ class UpdateTransaction(BaseModel):
 
 
 class ModifyAccess(BaseModel):
-    stat_date: str
+    start_date: str
     end_date: str
     user_id: int
     cash_account_id: int
