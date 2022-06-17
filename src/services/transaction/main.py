@@ -98,5 +98,5 @@ async def get_report_in_excel(payload: dict = Depends(ACL.JWTpayload)):
 
 
 @router.get('/report_files')
-async def get_reports_location():
+async def get_reports_location(payload: dict = Depends(ACL.JWTpayload)):
     return await crud.get_list_of_reports_location()

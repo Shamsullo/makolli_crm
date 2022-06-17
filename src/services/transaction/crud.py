@@ -3,6 +3,7 @@ from lib.connection import connection
 import openpyxl
 from datetime import date
 from openpyxl.styles import Font
+import os
 
 REPORTS_LOCATION = static_env()['report_path']
 
@@ -68,7 +69,7 @@ async def give_modify_access(access):
     result = None
     with connection() as cur:
         cur.callproc('transaction.give_modify_access_for_cash_accountant',
-            (access.start_date, access.end_date, access.cash_accountant_id, access.user_id)
+            (access.start_date, access.end_date, access.cash_account_id, access.user_id)
         )
         result = cur.fetchone()
         result = result[0] if result else None
@@ -257,5 +258,4 @@ async def get_report_in_excel():
 
 
 async def get_list_of_reports_location():
-    import os
     return os.listdir(REPORTS_LOCATION)
