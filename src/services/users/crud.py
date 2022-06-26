@@ -51,7 +51,7 @@ async def update_user(user_id, user, payload):
     with connection() as cur:
         cur.callproc('"user".update_user2',
             (user_id, user.first_name, user.last_name, user.phone_number, user.role_id, user.middle_name,
-             user.email, user.position_id, user.department_id, user.disabled, user.active)
+             user.email, user.position_id, user.department_id, user.disabled, user.active, user.password)
         )
         result = cur.fetchone()
         result = result[0] if result else None

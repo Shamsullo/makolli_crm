@@ -31,6 +31,7 @@ class UserUpdate(BaseModel):
     department_id: Optional[int]
     disabled: Optional[bool]
     active: Optional[bool]
+    password: Optional[str]
 
 
 class ChangePassword(BaseModel):
