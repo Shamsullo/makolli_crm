@@ -5,6 +5,8 @@ from datetime import date
 from openpyxl.styles import Font
 import os
 
+from src.services.transaction import models
+
 REPORTS_LOCATION = static_env()['report_path']
 
 
@@ -259,3 +261,15 @@ async def get_report_in_excel():
 
 async def get_list_of_reports_location():
     return os.listdir(REPORTS_LOCATION)
+
+
+async def get_json_data_for_reporting(report: models.ReportFilter):
+    result = None
+    with connection() as cur:
+        cur.callproc('transaction.get_transactions_for_report',
+            (report.start_date, report.end_date, report.group_by, report.cash_account_ids, report.income, report.outgo)
+        )
+        result = cur.fetchone()
+        result = result[0] if result else None
+
+    return result
