@@ -152,7 +152,7 @@ async def add_cash_accountant(account):
     result = None
     with connection() as cur:
         cur.callproc('company.add_cash_accountant2',
-                     (account.name, account.currency_id, account.is_main, account.user_id, account.initial_balance))
+                     (account.name, account.currency_id, account.is_main, account.user_id, account.initial_balance, account.is_checking))
         result = cur.fetchone()
         result = result[0] if result else None
     return result
@@ -163,7 +163,7 @@ async def update_cash_accountant(id, account):
     with connection() as cur:
         cur.callproc(
             'company.update_cash_accountant2',
-            (id, account.name, account.currency_id, account.is_main, account.initial_balance, account.disabled)
+            (id, account.name, account.currency_id, account.is_main, account.initial_balance, account.disabled, account.is_checking)
         )
         result = cur.fetchone()
         result = result[0] if result else None

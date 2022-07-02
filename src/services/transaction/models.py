@@ -37,5 +37,10 @@ class ModifyAccess(BaseModel):
     cash_account_id: int
 
 
-
-
+class ReportFilter(BaseModel):
+    start_date: str
+    end_date: str
+    group_by: int
+    cash_account_ids: Optional[list]
+    income: Optional[bool]
+    outgo: Optional[bool]
