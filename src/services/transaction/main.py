@@ -1,8 +1,12 @@
 from typing import List
 
+from pydantic import EmailStr
+from starlette.responses import JSONResponse
+
 from src.services.transaction import crud, models, utils
 import lib.acl as ACL
-from fastapi import Depends, APIRouter, Request, Response, HTTPException
+from fastapi import Depends, APIRouter, UploadFile, File, Query
+from fastapi_mail import FastMail, MessageSchema,ConnectionConfig
 
 router = APIRouter(prefix='/transaction', tags=["Transactions"])
 
@@ -105,3 +109,34 @@ async def get_reports_location(payload: dict = Depends(ACL.JWTpayload)):
 @router.post('/report_json')
 async def get_json_data_for_reporting(filter: models.ReportFilter, payload: dict = Depends(ACL.JWTpayload)):
     return await crud.get_json_data_for_reporting(filter)
+
+
+conf = ConnectionConfig(
+    MAIL_USERNAME = "cf@makolli.tj",
+    MAIL_PASSWORD = "RaYUcB41%yty",
+    MAIL_FROM = "cf@makolli.tj",
+    MAIL_PORT = 587,
+    MAIL_SERVER = "smtp.mail.ru",
+    # MAIL_FROM_NAME="Desired Name",
+    MAIL_TLS = True,
+    MAIL_SSL = False,
+    USE_CREDENTIALS = True,
+    VALIDATE_CERTS = True
+)
+
+
+@router.post('/send_report')
+async def send_file(
+    subject: str, body: str, email: List[EmailStr]=Query(...),
+    file: UploadFile = File(...)
+) -> JSONResponse:
+    message = MessageSchema(
+        subject=subject,
+        recipients=email,
+        body=body,
+        attachments=[file]
+    )
+
+    fm = FastMail(conf)
+    await fm.send_message(message)
+    return JSONResponse(status_code=200, content={"message": "email has been sent"})

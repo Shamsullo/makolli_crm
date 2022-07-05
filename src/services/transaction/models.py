@@ -1,5 +1,8 @@
 from typing import Optional
-from pydantic import BaseModel
+
+from pydantic import BaseModel, EmailStr
+from pydantic.class_validators import List
+
 
 class AddTransaction(BaseModel):
     date_time: Optional[str] = None
@@ -44,3 +47,9 @@ class ReportFilter(BaseModel):
     cash_account_ids: Optional[list]
     income: Optional[bool]
     outgo: Optional[bool]
+
+
+class EmailModel(BaseModel):
+    subject: str
+    email: List[EmailStr] #=Query(...),
+    body: str
