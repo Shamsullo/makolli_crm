@@ -48,7 +48,8 @@ async def user_registration(user: models.UserReg):
 
 async def update_user(user_id, user, payload):
     result = None
-    phone_number = utils.correct_phone_number(user.phone_number)
+    if user.phone_number:
+        phone_number = utils.correct_phone_number(user.phone_number)
     with connection() as cur:
         cur.callproc('"user".update_user2',
             (user_id, user.first_name, user.last_name, phone_number, user.role_id, user.middle_name,
